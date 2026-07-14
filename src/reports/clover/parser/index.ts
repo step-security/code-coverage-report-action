@@ -1,0 +1,118 @@
+import { Clover, File, FileMetrics, Package } from '../types';
+import { Coverage, Files } from '../../../interfaces';
+import {
+  determineCommonBasePath,
+  roundPercentage,
+  createHash,
+  escapeRegExp
+} from '../../../utils';
+
+export default async function parse(clover: Clover): Promise<Coverage> {
+  const { metrics, '@_timestamp': timestamp } = clover.coverage.project;
+
+  let files: Files = {};
+  if (clover.coverage.project.package) {
+    files = {
+      ...files,
+      ...(await parsePackages(clover.coverage.project.package))
+    };
+  }
+  if (clover.coverage.project.file) {
+    files = { ...files, ...(await parseFiles(clover.coverage.project.file)) };
+  }
+
+  const fileList = Object.values(files).map((file) => file.absolute);
+  const basePath = `${determineCommonBasePath(fileList)}`;
+  const regExp = new RegExp(`^${escapeRegExp(`${basePath}/`)}`);
+
+  return {
+    files: Object.entries(files).reduce((previous, [, file]) => {
+      file.relative = file.absolute.replace(regExp, '');
+      return { ...previous, [createHash(file.relative)]: file };
+    }, {}),
+    coverage: processCoverageMetrics(metrics),
+    timestamp: parseInt(timestamp),
+    basePath
+  };
+}
+
+/**
+ * Parse Packages
+ *
+ * @param {Package[]} packages
+ * @returns {Promise<Files>}
+ */
+async function parsePackages(packages: Package[]): Promise<Files> {
+  let allFiles: Files = {};
+  for await (const p of packages) {
+    if (!p.file) {
+      continue;
+    }
+    const files = await parseFiles(p.file);
+    allFiles = { ...allFiles, ...files };
+  }
+  return allFiles;
+}
+
+/**
+ * Process into an object
+ *
+ * @param {File[]|undefined|null} files
+ * @returns {Promise<Files>}
+ */
+async function parseFiles(files: File[] | undefined | null): Promise<Files> {
+  return (
+    files?.reduce(
+      (
+        previous,
+        { '@_name': name, metrics: fileMetrics, '@_path': path }: File
+      ) => {
+        const coveredSum =
+          (parseInt(fileMetrics['@_coveredconditionals'], 10) || 0) +
+          (parseInt(fileMetrics['@_coveredstatements'], 10) || 0) +
+          (parseInt(fileMetrics['@_coveredmethods'], 10) || 0);
+        const codeSum =
+          (parseInt(fileMetrics['@_conditionals'], 10) || 0) +
+          (parseInt(fileMetrics['@_statements'], 10) || 0) +
+          (parseInt(fileMetrics['@_methods'], 10) || 0);
+        return {
+          ...previous,
+          [createHash(path ?? name)]: {
+            relative: path ?? name,
+            absolute: path ?? name,
+            coverage: processCoverageMetrics(fileMetrics),
+            lines_covered: coveredSum,
+            lines_valid: codeSum
+          }
+        };
+      },
+      {}
+    ) ?? {}
+  );
+}
+
+/**
+ * Process Coverage Metrics from Clover
+ *
+ * See: https://confluence.atlassian.com/clover/how-are-the-clover-coverage-percentages-calculated-79986990.html
+ *
+ * @param metrics
+ * @returns
+ */
+function processCoverageMetrics(metrics: FileMetrics): number {
+  const coveredConditionals =
+    parseInt(metrics['@_coveredconditionals'], 10) || 0;
+  const coveredStatements = parseInt(metrics['@_coveredstatements'], 10) || 0;
+  const coveredMethods = parseInt(metrics['@_coveredmethods'], 10) || 0;
+  const conditionals = parseInt(metrics['@_conditionals'], 10) || 0;
+  const statements = parseInt(metrics['@_statements'], 10) || 0;
+  const methods = parseInt(metrics['@_methods'], 10) || 0;
+
+  const coveredSum = coveredConditionals + coveredStatements + coveredMethods;
+  const codeSum = conditionals + statements + methods;
+
+  const codeCoveragePercentage =
+    codeSum > 0 ? (100.0 * coveredSum) / codeSum : 0;
+
+  return roundPercentage(codeCoveragePercentage);
+}
