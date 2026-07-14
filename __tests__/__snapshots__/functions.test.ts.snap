@@ -1,0 +1,305 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Dont Fail on negative difference if negative_difference_threshold is set 1`] = `
+[
+  "::debug::headCoverage: 49\\n",
+  "::debug::baseCoverage: 50.51\\n",
+  "::debug::overallDifferencePercentage: -1.51\\n",
+  "::debug::negativeDifferenceThreshold: -10\\n",
+  "Writing results to code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=file::code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=coverage::49\\n",
+  "Writing job summary\\n",
+]
+`;
+
+exports[`Dont Fail on negative difference if negative_difference_threshold is set 2`] = `
+"# Code Coverage Report
+
+| Package | Base Coverage | New Coverage | Difference |
+| ------- | ------------- | ------------ | ---------- |
+| main.ts | 🔴 0% | 🔴 0% | ⚪ 0% |
+| reports/clover/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/clover/parser/index.ts | 🟢 84.31% | 🟢 84.31% | ⚪ 0% |
+| reports/clover/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/cobertura/index.ts | 🟠 66.67% | 🟠 66.67% | ⚪ 0% |
+| reports/cobertura/parser/index.ts | 🔴 13.33% | 🔴 13.33% | ⚪ 0% |
+| reports/cobertura/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| utils.ts | 🟠 70.94% | 🟠 69% | 🔴 -1.94% |
+| **Overall Coverage** | **🟢 50.51%** | **🟢 49%** | **🔴 -1.51%** |
+
+_Minimum allowed coverage is_ \`0%\`_, this run produced_ \`49%\`
+_Maximum allowed coverage difference is_ \`-10%\`_, this run produced_ \`-1.51%\`
+"
+`;
+
+exports[`Fail if negative_difference_threshold is set and exceeded 1`] = `
+[
+  "::debug::headCoverage: 49\\n",
+  "::debug::baseCoverage: 50.51\\n",
+  "::debug::overallDifferencePercentage: -1.51\\n",
+  "::debug::negativeDifferenceThreshold: -1\\n",
+  "::error::utils.ts coverage difference was -1.94%25 which is below threshold of -1%25\\n",
+  "Writing results to code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=file::code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=coverage::49\\n",
+  "Writing job summary\\n",
+]
+`;
+
+exports[`Fail if negative_difference_threshold is set and exceeded 2`] = `
+"# Code Coverage Report
+
+| Package | Base Coverage | New Coverage | Difference |
+| ------- | ------------- | ------------ | ---------- |
+| main.ts | 🔴 0% | 🔴 0% | ⚪ 0% |
+| reports/clover/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/clover/parser/index.ts | 🟢 84.31% | 🟢 84.31% | ⚪ 0% |
+| reports/clover/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/cobertura/index.ts | 🟠 66.67% | 🟠 66.67% | ⚪ 0% |
+| reports/cobertura/parser/index.ts | 🔴 13.33% | 🔴 13.33% | ⚪ 0% |
+| reports/cobertura/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| utils.ts | 🟠 70.94% | 🟠 69% | 🔴 -1.94% |
+| **Overall Coverage** | **🟢 50.51%** | **🟢 49%** | **🔴 -1.51%** |
+
+_Minimum allowed coverage is_ \`0%\`_, this run produced_ \`49%\`
+_Maximum allowed coverage difference is_ \`-1%\`_, this run produced_ \`-1.51%\`
+"
+`;
+
+exports[`Fail if overall coverage is below fail threshold 1`] = `
+[
+  "::debug::headCoverage: 50.51\\n",
+  "::debug::baseCoverage: 50.51\\n",
+  "::debug::overallDifferencePercentage: 0\\n",
+  "::debug::negativeDifferenceThreshold: 0\\n",
+  "::error::FAIL: Overall coverage of 50.51%25 below minimum threshold of 99%25.\\n",
+  "Writing results to code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=file::code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=coverage::50.51\\n",
+  "Writing job summary\\n",
+]
+`;
+
+exports[`Fail if overall coverage is below fail threshold 2`] = `
+"# Code Coverage Report
+
+| Package | Base Coverage | New Coverage | Difference |
+| ------- | ------------- | ------------ | ---------- |
+| main.ts | 🔴 0% | 🔴 0% | ⚪ 0% |
+| reports/clover/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/clover/parser/index.ts | 🟢 84.31% | 🟢 84.31% | ⚪ 0% |
+| reports/clover/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/cobertura/index.ts | 🟠 66.67% | 🟠 66.67% | ⚪ 0% |
+| reports/cobertura/parser/index.ts | 🔴 13.33% | 🔴 13.33% | ⚪ 0% |
+| reports/cobertura/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| utils.ts | 🟠 70.94% | 🟠 70.94% | ⚪ 0% |
+| **Overall Coverage** | **🔴 50.51%** | **🔴 50.51%** | **⚪ 0%** |
+
+_Minimum allowed coverage is_ \`99%\`_, this run produced_ \`50.51%\`
+"
+`;
+
+exports[`Fail on negative difference 1`] = `
+[
+  "::debug::headCoverage: 49\\n",
+  "::debug::baseCoverage: 50.51\\n",
+  "::debug::overallDifferencePercentage: -1.51\\n",
+  "::debug::negativeDifferenceThreshold: 0\\n",
+  "::error::utils.ts coverage difference was -1.94%25 which is below threshold of 0%25\\n",
+  "Writing results to code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=file::code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=coverage::49\\n",
+  "Writing job summary\\n",
+]
+`;
+
+exports[`Fail on negative difference 2`] = `
+"# Code Coverage Report
+
+| Package | Base Coverage | New Coverage | Difference |
+| ------- | ------------- | ------------ | ---------- |
+| main.ts | 🔴 0% | 🔴 0% | ⚪ 0% |
+| reports/clover/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/clover/parser/index.ts | 🟢 84.31% | 🟢 84.31% | ⚪ 0% |
+| reports/clover/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/cobertura/index.ts | 🟠 66.67% | 🟠 66.67% | ⚪ 0% |
+| reports/cobertura/parser/index.ts | 🔴 13.33% | 🔴 13.33% | ⚪ 0% |
+| reports/cobertura/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| utils.ts | 🟠 70.94% | 🟠 69% | 🔴 -1.94% |
+| **Overall Coverage** | **🟢 50.51%** | **🟢 49%** | **🔴 -1.51%** |
+
+_Minimum allowed coverage is_ \`0%\`_, this run produced_ \`49%\`
+"
+`;
+
+exports[`Generate Base Clover Markdown 1`] = `
+[
+  "::debug::headCoverage: 50.51\\n",
+  "::debug::baseCoverage: undefined\\n",
+  "::debug::overallDifferencePercentage: null\\n",
+  "::debug::negativeDifferenceThreshold: 0\\n",
+  "Writing results to code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=file::code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=coverage::50.51\\n",
+  "Writing job summary\\n",
+]
+`;
+
+exports[`Generate Base Clover Markdown 2`] = `
+"# Code Coverage Report
+
+| Package |    Coverage   |
+| ------- | ------------- |
+| main.ts | 🔴 0% |
+| reports/clover/index.ts | 🟢 100% |
+| reports/clover/parser/index.ts | 🟢 84.31% |
+| reports/clover/types/index.ts | 🟢 100% |
+| reports/cobertura/index.ts | 🟠 66.67% |
+| reports/cobertura/parser/index.ts | 🔴 13.33% |
+| reports/cobertura/types/index.ts | 🟢 100% |
+| utils.ts | 🟠 70.94% |
+| **Overall Coverage** | **🟢 50.51%** |
+
+_Minimum allowed coverage is_ \`0%\`_, this run produced_ \`50.51%\`
+"
+`;
+
+exports[`Generate Base Cobertura Markdown 1`] = `
+[
+  "::debug::headCoverage: 49.83\\n",
+  "::debug::baseCoverage: undefined\\n",
+  "::debug::overallDifferencePercentage: null\\n",
+  "::debug::negativeDifferenceThreshold: 0\\n",
+  "Writing results to code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=file::code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=coverage::49.83\\n",
+  "Writing job summary\\n",
+]
+`;
+
+exports[`Generate Base Cobertura Markdown 2`] = `
+"# Code Coverage Report
+
+| Package |    Coverage   |
+| ------- | ------------- |
+| main.ts | 🔴 0% |
+| reports/clover/index.ts | 🟢 100% |
+| reports/clover/parser/index.ts | 🟢 93.94% |
+| reports/clover/types/index.ts | 🟢 100% |
+| reports/cobertura/index.ts | 🟢 100% |
+| reports/cobertura/parser/index.ts | 🔴 20% |
+| reports/cobertura/types/index.ts | 🟢 100% |
+| utils.ts | 🟠 67.36% |
+| **Overall Coverage** | **🟢 49.83%** |
+
+_Minimum allowed coverage is_ \`0%\`_, this run produced_ \`49.83%\`
+"
+`;
+
+exports[`Generate Diffed Clover Markdown 1`] = `
+[
+  "::debug::headCoverage: 50.51\\n",
+  "::debug::baseCoverage: 50.51\\n",
+  "::debug::overallDifferencePercentage: 0\\n",
+  "::debug::negativeDifferenceThreshold: 0\\n",
+  "Writing results to code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=file::code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=coverage::50.51\\n",
+  "Writing job summary\\n",
+]
+`;
+
+exports[`Generate Diffed Clover Markdown 2`] = `
+"# Code Coverage Report
+
+| Package | Base Coverage | New Coverage | Difference |
+| ------- | ------------- | ------------ | ---------- |
+| main.ts | 🔴 0% | 🔴 0% | ⚪ 0% |
+| reports/clover/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/clover/parser/index.ts | 🟢 84.31% | 🟢 84.31% | ⚪ 0% |
+| reports/clover/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/cobertura/index.ts | 🟠 66.67% | 🟠 66.67% | ⚪ 0% |
+| reports/cobertura/parser/index.ts | 🔴 13.33% | 🔴 13.33% | ⚪ 0% |
+| reports/cobertura/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| utils.ts | 🟠 70.94% | 🟠 70.94% | ⚪ 0% |
+| **Overall Coverage** | **🟢 50.51%** | **🟢 50.51%** | **⚪ 0%** |
+
+_Minimum allowed coverage is_ \`0%\`_, this run produced_ \`50.51%\`
+"
+`;
+
+exports[`Generate Diffed Cobertura Markdown 1`] = `
+[
+  "::debug::headCoverage: 49.83\\n",
+  "::debug::baseCoverage: 49.83\\n",
+  "::debug::overallDifferencePercentage: 0\\n",
+  "::debug::negativeDifferenceThreshold: 0\\n",
+  "Writing results to code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=file::code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=coverage::49.83\\n",
+  "Writing job summary\\n",
+]
+`;
+
+exports[`Generate Diffed Cobertura Markdown 2`] = `
+"# Code Coverage Report
+
+| Package | Base Coverage | New Coverage | Difference |
+| ------- | ------------- | ------------ | ---------- |
+| main.ts | 🔴 0% | 🔴 0% | ⚪ 0% |
+| reports/clover/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/clover/parser/index.ts | 🟢 93.94% | 🟢 93.94% | ⚪ 0% |
+| reports/clover/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/cobertura/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| reports/cobertura/parser/index.ts | 🔴 20% | 🔴 20% | ⚪ 0% |
+| reports/cobertura/types/index.ts | 🟢 100% | 🟢 100% | ⚪ 0% |
+| utils.ts | 🟠 67.36% | 🟠 67.36% | ⚪ 0% |
+| **Overall Coverage** | **🟢 49.83%** | **🟢 49.83%** | **⚪ 0%** |
+
+_Minimum allowed coverage is_ \`0%\`_, this run produced_ \`49.83%\`
+"
+`;
+
+exports[`Only list changed files 1`] = `
+[
+  "::debug::headCoverage: 49\\n",
+  "::debug::baseCoverage: 50.51\\n",
+  "::debug::overallDifferencePercentage: -1.51\\n",
+  "::debug::negativeDifferenceThreshold: 0\\n",
+  "Writing results to code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=file::code-coverage-results.md\\n",
+  "\\n",
+  "::set-output name=coverage::49\\n",
+  "Writing job summary\\n",
+]
+`;
+
+exports[`Only list changed files 2`] = `
+"# Code Coverage Report: Only Changed Files listed
+
+| Package | Base Coverage | New Coverage | Difference |
+| ------- | ------------- | ------------ | ---------- |
+| utils.ts | 🟠 70.94% | 🟠 69% | 🔴 -1.94% |
+| **Overall Coverage** | **🟢 50.51%** | **🟢 49%** | **🔴 -1.51%** |
+
+_Minimum allowed coverage is_ \`0%\`_, this run produced_ \`49%\`
+"
+`;

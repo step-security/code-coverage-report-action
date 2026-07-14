@@ -1,0 +1,92 @@
+name: 'Code Coverage Report Difference'
+description: 'Provides code coverage reports with the ability to see differences in a pull requests utilizing markdown files.'
+author: 'step-security'
+branding:
+  icon: 'file-text'
+  color: 'blue'
+inputs:
+  filename:
+    description: 'Code Coverage file to process (with extension)'
+    required: true
+  github_token:
+    description: 'GitHub token. This is sometimes needed on private repositories'
+    required: false
+    default: ${{ github.token }}
+  only_list_changed_files:
+    description: 'Only list changed files'
+    required: false
+    default: 'false'
+  markdown_filename:
+    description: 'The filename (without extension) for the resulting markdown file. Default is code-coverage-results.'
+    required: false
+    default: 'code-coverage-results'
+  badge:
+    description: 'Include a coverage badge in the output using shields.io - true / false (default).'
+    required: false
+    default: 'false'
+  overall_coverage_fail_threshold:
+    description: 'Fail if overall coverage below lower threshold percentage. The default value is 0'
+    required: false
+    default: '0'
+  file_coverage_error_min:
+    description: 'Threshold used to determine when coverages less than this value should be marked red'
+    required: false
+    default: '50'
+  file_coverage_warning_max:
+    description: 'Threshold used to determine when coverages less than this value should be marked orange. Above this will be marked green'
+    required: false
+    default: '75'
+  fail_on_negative_difference:
+    description: 'Fail if any difference is a negative value (Coverage was reduced)'
+    required: false
+    default: 'false'
+  artifact_download_workflow_names:
+    description: 'Comma Separated list of workflow names to look for artifacts in. If left empty will only look at the current workflow'
+    required: false
+  artifact_name:
+    description: 'Artifact name. Use %name% as a placeholder (must be included!)'
+    required: false
+    default: 'coverage-%name%'
+  negative_difference_by:
+    description: 'Determines how negative difference is evaluated. Possible values are "overall" and "package" (default)'
+    required: false
+    default: 'package'
+  negative_difference_threshold:
+    description: 'The percentage drop in coverage that should be allowed. The default value is 0.'
+    required: false
+    default: '0'
+  retention_days:
+    description: 'The number of days to retain uploaded artifacts. When `undefined` (default), the default retention period for the repository is used.'
+    required: false
+  without_base_coverage_template:
+    description: 'Path to custom template without base coverage'
+    required: false
+  with_base_coverage_template:
+    description: 'Path to custom template with base coverage'
+    required: false
+  show_coverage_by_top_dir:
+    description: 'When true, aggregate coverage by the first path segment (e.g. src/, tests/, (root)). Takes precedence over coverage_depth and show_coverage_by_parent_dir.'
+    required: false
+    default: 'false'
+  coverage_depth:
+    description: 'When set (e.g. 2), aggregate by path to this depth (1=first segment, 2=first two segments). Ignored if show_coverage_by_top_dir is true. Takes precedence over show_coverage_by_parent_dir.'
+    required: false
+    default: ''
+  show_coverage_by_parent_dir:
+    description: 'When true, aggregate coverage by the parent directory of each file (e.g. src/common/, src/aws/). Ignored if show_coverage_by_top_dir or coverage_depth is set.'
+    required: false
+    default: 'false'
+  exclude_paths:
+    description: 'Comma-separated path prefixes to exclude from coverage (e.g. tests/, e2e/, docs/). Files whose relative path starts with any prefix are excluded from the report and from overall coverage.'
+    required: false
+    default: ''
+
+
+outputs:
+  file:
+    description: 'The generated markdown file path'
+  coverage:
+    description: 'The overall coverage of the project as a percentage'
+runs:
+  using: 'node24'
+  main: 'dist/index.js'
